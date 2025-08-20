@@ -1,20 +1,39 @@
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { ProtectedRoute } from './src/components/ProtectedRoute';
+import { ConversationScreen } from './src/components/ConversationScreen';
+import { SettingsScreen } from './src/components/SettingsScreen';
 
-export default function App() {
+function MainApp() {
+  const [currentScreen, setCurrentScreen] = useState<'conversation' | 'settings'>('conversation');
+
+  const handleNavigateToSettings = () => {
+    setCurrentScreen('settings');
+  };
+
+  const handleNavigateToConversation = () => {
+    setCurrentScreen('conversation');
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <>
+      {currentScreen === 'conversation' ? (
+        <ConversationScreen onNavigateToSettings={handleNavigateToSettings} />
+      ) : (
+        <SettingsScreen onNavigateBack={handleNavigateToConversation} />
+      )}
       <StatusBar style="auto" />
-    </View>
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <ProtectedRoute>
+      <MainApp />
+    </ProtectedRoute>
+  );
+}
+
+const styles = StyleSheet.create({});
