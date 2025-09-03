@@ -13,21 +13,17 @@ export interface ConversationContext {
   conversationHistory: Message[];
 }
 
-// TTS Provider types
-export type TTSProvider = 'expo-speech' | 'elevenlabs';
-
 // Audio emotion types supported by ElevenLabs
 export type AudioEmotion = 'neutral' | 'happy' | 'sad' | 'angry' | 'excited' | 'calm' | 'friendly' | 'professional';
 
-// Enhanced TTS settings with emotion control
-export interface TTSSettings {
-  provider: TTSProvider;
-  voiceId?: string; // For ElevenLabs
+// ElevenLabs-only TTS settings
+export interface ElevenLabsTTSSettings {
+  voiceId: string;
   useSpeaker: boolean;
-  speed?: number; // Speech rate (0.7 = slow, 1.0 = normal, 1.2 = fast) - ElevenLabs range
-  emotion?: AudioEmotion; // Emotional expression for ElevenLabs
-  stability?: number; // Voice stability (0.0 to 1.0) - ElevenLabs parameter
-  similarityBoost?: number; // Voice similarity boost (0.0 to 1.0) - ElevenLabs parameter
+  speed: number; // Speech rate (0.7 = slow, 1.0 = normal, 1.2 = fast)
+  emotion: AudioEmotion; // Emotional expression
+  stability: number; // Voice stability (0.0 to 1.0)
+  similarityBoost: number; // Voice similarity boost (0.0 to 1.0)
 }
 
 // Audio tag configuration for different learning scenarios
